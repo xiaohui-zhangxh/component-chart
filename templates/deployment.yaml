@@ -441,8 +441,12 @@ spec:
           configMap:
 {{ toYaml $volume.configMap | indent 12 }}
           {{- else }}
+          {{- if $volume.emptyDir }}
+          emptyDir: {}
+          {{- else }}
           persistentVolumeClaim:
             claimName: {{ $volume.name | quote }}
+          {{- end }}
           {{- end }}
           {{- end }}
         {{- end }}
